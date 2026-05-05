@@ -1,0 +1,22 @@
+{
+  "actorSpecification": 1,
+  "name": "institution-intelligence-mcp",
+  "version": "1.0",
+  "title": "Institution Intelligence MCP — AI Agent Academic Intelligence",
+  "description": "AI agent access to research institution data — ROR lookup, h-index, research output metrics, institutional comparisons, and sector analysis via OpenAlex.",
+  "meta": {
+    "templateId": "standby-node"
+  },
+  "input": "../input_schema.json",
+  "readme": "../README.md",
+  "defaultRunOptions": {
+    "memoryMbytes": 512,
+    "timeoutSecs": 120
+  },
+  "usesStandbyMode": true,
+  "webServerMcpPath": "/mcp",
+  "pricing": {
+    "model": "PAY_PER_EVENT"
+  },
+  "categories": ["DATA_SCIENCE", "ACADEMIC_RESEARCH"]
+}

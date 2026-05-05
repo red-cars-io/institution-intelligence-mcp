@@ -1,0 +1,22 @@
+{
+  "title": "Institution Intelligence MCP",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tool": {
+      "title": "Tool Name",
+      "type": "string",
+      "description": "MCP tool to call",
+      "enum": ["search_institutions", "get_institution_details", "compare_institutions", "get_institution_research_areas", "analyze_research_output"],
+      "editor": "select",
+      "prefill": "search_institutions"
+    },
+    "params": {
+      "title": "Parameters (JSON)",
+      "type": "object",
+      "description": "Tool parameters as JSON object",
+      "editor": "json",
+      "prefill": {"query": "Stanford University", "maxResults": 10}
+    }
+  }
+}

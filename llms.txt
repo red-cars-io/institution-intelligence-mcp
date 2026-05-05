@@ -1,0 +1,84 @@
+# Institution Intelligence MCP Server
+
+Research institution data for AI agents — ROR lookup, h-index, research output metrics, institutional comparisons, and sector analysis via OpenAlex.
+
+## When to Call This MCP
+
+Call Institution Intelligence MCP when your AI agent needs to:
+- Search research institutions by name, country, or type with h-index and publication counts
+- Get detailed institutional profiles by ROR ID or name (h-index, i10-index, citations, top fields)
+- Compare 2-5 institutions side-by-side for VC due diligence or academic benchmarking
+- Map top research areas per institution with field scores
+- Analyze research output by country, sector, or research area
+
+## Tools
+
+### search_institutions
+
+Search research institutions by name, country, or type. Returns institutions ranked by research output with h-index, works count, and citation metrics.
+
+Example AI prompt: "Find the top 10 US universities by h-index specializing in machine learning research"
+
+Parameters:
+- query (required): Institution name to search for
+- country (optional): Filter by country code (US, GB, DE, CN, etc.)
+- institutionType (optional): Filter by type: education, government, healthcare, company, nonprofit, facility
+- maxResults (optional, default 10): Maximum results to return
+- sortBy (optional, default "works_count"): Sort by "works_count", "cited_by_count", or "h_index"
+
+### get_institution_details
+
+Get detailed metrics for a specific institution by ROR ID or exact name match. Returns full research profile with h-index, i10-index, citation metrics, and research areas.
+
+Example AI prompt: "Get the full research profile for Stanford University including h-index, i10-index, and top research fields"
+
+Parameters:
+- institutionId (optional): ROR ID (e.g., "https://ror.org/00f54p054") or OpenAlex institution ID
+- name (optional): Institution display name (alternative to institutionId)
+
+### compare_institutions
+
+Compare 2-5 institutions side-by-side: works count, citations, h-index, i10-index, top research areas, and publication output with relative rankings.
+
+Example AI prompt: "Compare Harvard, Stanford, and MIT on research output, h-index, and i10-index"
+
+Parameters:
+- institutions (required): List of 2-5 institution names to compare
+- metrics (optional, default ["works_count", "cited_by_count", "h_index"]): Metrics to compare
+
+### get_institution_research_areas
+
+Get top research areas/concepts for an institution, with publication counts and field scores per area.
+
+Example AI prompt: "What are MIT's top 10 research areas by publication count and field score?"
+
+Parameters:
+- institutionId (optional): ROR ID or OpenAlex institution ID
+- name (optional): Institution name (will be resolved to ROR)
+- maxAreas (optional, default 15): Maximum research areas to return
+
+### analyze_research_output
+
+Analyze research output by country, sector, or research area. Returns aggregated metrics for the given filter.
+
+Example AI prompt: "What are the top 25 government research institutions in the US by publication output?"
+
+Parameters:
+- country (optional): Filter by country code
+- sector (optional): Filter by sector: education, government, healthcare, company, nonprofit
+- researchArea (optional): Filter by research concept (e.g., "machine learning", "cancer")
+- maxResults (optional, default 25): Maximum results to return
+
+## Pricing
+
+| Tool | Price |
+|------|-------|
+| search_institutions | $0.03 |
+| get_institution_details | $0.02 |
+| compare_institutions | $0.05 |
+| get_institution_research_areas | $0.03 |
+| analyze_research_output | $0.05 |
+
+## Setup
+
+No API keys required. OpenAlex's public API is freely accessible.

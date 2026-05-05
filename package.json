@@ -1,0 +1,15 @@
+{
+  "name": "institution-intelligence-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Institution Intelligence MCP — AI agent access to research institution data via OpenAlex",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "apify": "^3.6.0"
+  }
+}
