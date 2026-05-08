@@ -6,7 +6,12 @@
 import http from 'http';
 import Apify, { Actor } from 'apify';
 
-const PORT = process.env.APIFY_PORT || 8080;
+// Always call Actor.init() once unconditionally
+await Actor.init();
+
+// Check standby AFTER init using env var
+const isStandby = process.env.APIFY_META_ORIGIN === 'STANDBY';
+const PORT = Actor.config.get('standbyPort') || 8080;
 
 // =============================================================================
 // CONSTANTS
@@ -161,7 +166,7 @@ async function searchInstitutions(query, { country, institutionType, maxResults 
     citedByCount: r.cited_by_count,
     hIndex: r.summary_stats?.h_index,
     i10Index: r.summary_stats?.i10_index,
-    meanCitedness: r.summary_stats?.2yr_mean_citedness ? Math.round(r.summary_stats['2yr_mean_citedness'] * 100) / 100 : null,
+    meanCitedness: r.summary_stats?.['2yr_mean_citedness'] ? Math.round(r.summary_stats['2yr_mean_citedness'] * 100) / 100 : null,
     researchAreas: r.x_concepts?.slice(0, 5).map((c) => c.display_name) || [],
   }));
 }
@@ -384,7 +389,7 @@ function replyError(code, message) {
 // MAIN ENTRY POINT
 // =============================================================================
 
-if (process.env.APIFY_IS_ATYPICAL_RUN === '1') {
+if (isStandby) {
   const server = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     if (url.pathname === '/health' || url.pathname === '/') {
