@@ -466,8 +466,7 @@ export default {
       const { tool, params = {} } = body;
       log.info(`Calling tool: ${tool}`);
       const result = await handleTool(tool, params);
-      const price = TOOL_PRICES[tool] || 0.01;
-      try { await Actor.charge(price); } catch (e) { log.error(`PPE charge error: ${e.message}`); }
+      try { await Actor.charge({ eventName: tool, count: 1 }); } catch (e) { log.error(`PPE charge error: ${e.message}`); }
       return { result };
     } catch (e) {
       log.error(`Tool error: ${e.message}`);
