@@ -424,7 +424,7 @@ if (isStandby) {
             try {
               const result = await handleTool(toolName, toolArgs);
               const price = TOOL_PRICES[toolName] || 0.01;
-              try { await Actor.charge(price); } catch (e) { console.error('PPE charge error:', e.message); }
+              try { await Actor.charge({ eventName: toolName, count: 1 }); } catch (e) { console.error('PPE charge error:', e.message); }
               return res.end(JSON.stringify(reply({ content: [{ type: 'text', text: JSON.stringify(result) }] })));
             } catch (e) {
               return res.end(JSON.stringify(reply({ error: e.message, tool: toolName }, 500)));
